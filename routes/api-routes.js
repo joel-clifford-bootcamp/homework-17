@@ -6,6 +6,7 @@ module.exports = function(app) {
   app.get("/api/workouts", ( req, res) => {
     Workout.find({})
     .sort({ date: -1 })
+    .limit(1)
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
@@ -15,8 +16,13 @@ module.exports = function(app) {
   });
 
   app.get("/api/workouts/range", ( req, res) => {
-    console.log("get workouts");
-    res.status(200).json({});
+    Workout.find({})
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    })
   });
 
   app.post("/api/workouts", ( { body }, res) => {
