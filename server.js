@@ -11,8 +11,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Add routes, both API and HTML
-app.use(require("./routes/api-routes"));
-app.use(require("./routes/html-routes"));
+require("./routes/api-routes.js")(app);
+require("./routes/html-routes.js")(app);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouttracker", {
